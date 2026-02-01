@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💋</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: pink;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  z-index: 2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 10px;
+  background: white;
+  color: hotpink;
+}
+
+#no {
+  position: absolute;
+}
+
+#yesScreen {
+  display: none;
+  font-size: 3rem;
+  animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+.kiss {
+  position: absolute;
+  font-size: 30px;
+  animation: burst 2s forwards;
+}
+
+@keyframes burst {
+  0% { transform: scale(0) translate(0,0); opacity: 1; }
+  100% { transform: scale(2) translate(var(--x), var(--y)); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4a4be8aaf8.mp3">
+</audio>
+
+<div class="container" id="main">
+  <h1>💋<br>Will you be my Valentine?</h1>
+  <button onclick="sayYes()">Yes ❤️</button>
+  <button id="no" onmouseover="moveNo()">No 😜</button>
+</div>
+
+<div id="yesScreen">Yah 💋💋💋</div>
+
+<script>
+function moveNo() {
+  const btn = document.getElementById("no");
+  btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+  btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+}
+
+function sayYes() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("yesScreen").style.display = "block";
+  explodeKisses();
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+
+setInterval(createHeart, 300);
+
+function explodeKisses() {
+  for (let i = 0; i < 30; i++) {
+    const kiss = document.createElement("div");
+    kiss.className = "kiss";
+    kiss.innerHTML = "💋";
+    kiss.style.left = "50%";
+    kiss.style.top = "50%";
+    kiss.style.setProperty("--x", (Math.random()*600-300)+"px");
+    kiss.style.setProperty("--y", (Math.random()*600-300)+"px");
+    document.body.appendChild(kiss);
+    setTimeout(() => kiss.remove(), 2000);
+  }
+}
+</script>
+
+</body>
+</html>
